@@ -7,7 +7,7 @@ This project demonstrates various programming principles through an implementati
 ### 1. DRY (Don't Repeat Yourself)
 **Description:** The code avoids redundancy by encapsulating logic in reusable methods and classes.
 
-**Example:** The `registerIncome` and `registerExpense` methods in [`reporting.js`](./reporting.js#L27-L55) handle financial transactions consistently, preventing code duplication.
+**Example:** The `registerIncome` and `registerExpense` methods in [`reporting.js`](./src/reporting.js#L27-L55) handle financial transactions consistently, preventing code duplication.
 
 ```js
 registerIncome(product, quantity) { /* ... */ }
@@ -17,7 +17,7 @@ registerExpense(product, productQuantity, quantity) { /* ... */ }
 ### 2. KISS (Keep It Simple, Stupid)
 **Description:** The methods are designed to be simple and clear, ensuring easy readability and maintenance.
 
-**Example:** The `deleteProduct` method in [`warehouse.js`](./warehouse.js#L100-L109) is a straightforward one-liner that removes a product by filtering the array.
+**Example:** The `deleteProduct` method in [`warehouse.js`](./src/warehouse.js#L100-L109) is a straightforward one-liner that removes a product by filtering the array.
 
 ```js
 deleteProduct(productName) {
@@ -29,9 +29,9 @@ deleteProduct(productName) {
 **Description:** Each class has a single responsibility.
 
 **Example:**
-- The `Product` class in [`product.js`](./product.js) manages product attributes and pricing.
-- The `Warehouse` class in [`warehouse.js`](./warehouse.js) handles inventory.
-- The `Reporting` class in [`reporting.js`](./reporting.js) generates financial reports.
+- The `Product` class in [`product.js`](./src/product.js) manages product attributes and pricing.
+- The `Warehouse` class in [`warehouse.js`](./src/warehouse.js) handles inventory.
+- The `Reporting` class in [`reporting.js`](./src/reporting.js) generates financial reports.
 
 ### 4. Open/Closed Principle (OCP) – SOLID
 **Description:** The system is open for extension but closed for modification.
@@ -78,7 +78,7 @@ this.products = defaultProducts;
 ### 10. Fail Fast
 **Description:** Errors are reported early to prevent cascading failures.
 
-**Example:** The `changeQuantity` method in [`warehouse.js`](./warehouse.js#L52-L74) prevents reducing stock below zero, ensuring the system remains in a valid state.
+**Example:** The `changeQuantity` method in [`warehouse.js`](./src/warehouse.js#L52-L74) prevents reducing stock below zero, ensuring the system remains in a valid state.
 
 ```js
 if (warehouseProduct.quantity - amount < 0) {
