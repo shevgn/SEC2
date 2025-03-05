@@ -38,11 +38,10 @@ export class Reporting {
 
     /**
      * @param {Product} product
-     * @param {number} productQuantity
      * @param {number} quantity 
      * @returns {void}
      */
-    registerExpense(product, productQuantity, quantity) {
+    registerExpense(product, quantity) {
         /** @type {Report} */
         const report = {
             type: "expense",
