@@ -1,0 +1,88 @@
+@startuml
+title Warehouse Management System UML Diagram
+
+' Define enums and types if needed
+' Note: "Currency" is defined as a union type ("USD" | "EUR" | "UAH") in the code
+
+' Base class for money
+class Money {
+  - wholePart : number
+  - pennies : number
+  - currency : Currency
+  + Money(wholePart: number, pennies: number, currency: Currency)
+  + toString() : string
+}
+
+' Derived classes for specific currencies
+class Dollar {
+  + Dollar(wholePart: number, pennies: number)
+  + toString() : string
+}
+class Euro {
+  + Euro(wholePart: number, pennies: number)
+  + toString() : string
+}
+class UAH {
+  + UAH(wholePart: number, pennies: number)
+  + toString() : string
+}
+
+Dollar --|> Money
+Euro --|> Money
+UAH --|> Money
+
+' Exchange class (static methods)
+class Exchange {
+  {static} - rates : Object.<Currency, Object.<Currency, number>>
+  {static} + convert(money: Money, to: Currency) : Money
+  {static} + createMoneyInstance(currency: Currency, wholePart: number, pennies: number) : Money
+}
+
+' Product class
+class Product {
+  - name : string
+  - price : Money
+  + Product(name: string, price: Money)
+  + lowerPrice(amount: number) : void
+}
+
+' Warehouse class
+class Warehouse {
+  - products : WarehouseProduct[]
+  + Warehouse(defaultProducts: WarehouseProduct[], reporting: Reporting | null)
+  + addProduct(product: Product, quantity: number, lastUpdated: Date) : void
+  + changeQuantity(productName: string, amount: number) : void
+  + changePrice(productName: string, amount: number) : void
+  + deleteProduct(productName: string) : void
+}
+
+' Reporting class
+class Reporting {
+  - incomeReports : Report[]
+  - expenseReports : Report[]
+  + Reporting()
+  + registerIncome(product: Product, quantity: number) : void
+  + registerExpense(product: Product, productQuantity: number, quantity: number) : void
+  + generateInventoryReport(warehouseProducts: WarehouseProduct[]) : void
+}
+
+' Relationships
+Warehouse "1" --> "*" Product : contains
+Warehouse "1" --> "0..1" Reporting : uses
+
+Exchange ..> Money : creates
+Exchange ..> Dollar
+Exchange ..> Euro
+Exchange ..> UAH
+
+Reporting ..> Exchange : uses
+
+' Note: WarehouseProduct and Report are defined as typedefs in the code.
+' They can be represented as notes or stereotypes if needed.
+note "WarehouseProduct:\n- product : Product\n- quantity : number\n- lastUpdated : Date" as NP
+note "Report:\n- type : string\n- date : Date\n- product : Product\n- quantity : number\n- totalPrice : Money" as NR
+
+Warehouse .. NP
+Reporting .. NR
+
+@enduml

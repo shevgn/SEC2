@@ -86,6 +86,7 @@ if (warehouseProduct.quantity - amount < 0) {
     return;
 }
 ```
+![diagram](./uml_diagram.png)
 
 ---
 
